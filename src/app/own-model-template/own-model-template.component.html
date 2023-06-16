@@ -1,0 +1,82 @@
+
+<div class="container mt-5 w-50 shadow p-10" >
+    <div class="row">
+      <h4 class="text-center mt-5">Template Driven Form</h4>
+    </div>
+    <form #signUp="ngForm" (ngSubmit)="savedata()">
+            <!-- First-Name -->
+
+      <div class="mb-3">
+        <label for="id1" class="form-label">First name</label>
+        <input type="text" class="form-control" id="id1" name="fName" [(ngModel)]="signUpobj.firstName" pattern="[a-zA-Z]{2,10}" minlength="2" required #fName="ngModel">
+        <div class="row" *ngIf="fName.invalid && fName.touched"></div>
+        <div class="invalid-feedback d-block" *ngIf="fName.errors?.['pattern']">Please enter valid name</div>
+        <div class="invalid-feedback d-block" *ngIf="fName.errors?.['minlength']">Enter min 2 Characters</div>
+        <div class="invalid-feedback d-block" *ngIf="fName.errors?.['required']">FirstName is required</div>
+      </div>
+
+
+            <!-- last Name -->
+      <div class="mb-3">
+        <label for="id2" class="form-label">Last Name</label>
+        <input type="text" class="form-control" id="id2" name="lName" [(ngModel)]="signUpobj.lastName" pattern="[a-zA-Z]{2,10}" minlength="2" required #lName="ngModel">
+        <div class="row" *ngIf="lName.invalid && lName.touched"></div>
+        <div class="invalid-feedback d-block" *ngIf="lName.errors?.['pattern']">Please enter valid lastname</div>
+        <div class="invalid-feedback d-block" *ngIf="lName.errors?.['minlength']">Enter min 2 Characters</div>
+        <div class="invalid-feedback d-block" *ngIf="lName.errors?.['required']">LastName is required</div>
+      </div> 
+            <!-- date of birth -->
+      <div class="mb-3">
+        <label for="id6" class="form-label">Date of Birth</label>
+        <input type="date" class="form-control" id="id6" name="DOB" [(ngModel)]="signUpobj.dob" required #DOB="ngModel" (change)="calculateAge()">
+        <div class="row" *ngIf="DOB.invalid && DOB.touched"></div>
+        <div class="invalid-feedback d-block" *ngIf="DOB.errors?.['required']">Birthdate is required</div>
+      </div>
+            <!-- age -->
+      <div class="mb-3">
+        <label for="id9" class="form-label">Age</label>
+        <input type="text" class="form-control" id="id9" name="age" [(ngModel)]="signUpobj.age" required >
+      </div>
+            <!-- mobile no -->
+      <div class="mb-3">
+        <label for="id3" class="form-label">Mobile No</label>
+        <input type="text" class="form-control" id="id3" name="mobno" [(ngModel)]="signUpobj.mobileNo" required pattern="[0-9]{10}" minlength="10" #mobno="ngModel">
+        <div class="row" *ngIf="mobno.invalid && mobno.touched"></div>
+        <div class="invalid-feedback d-block" *ngIf="mobno.errors?.['pattern']">Please enter 10 digit mobile no</div>
+        <div class="invalid-feedback d-block" *ngIf="mobno.errors?.['required']">Mobile Number is required</div>
+      </div>
+        <!-- email id -->
+      <div class="mb-3">
+        <label for="id4" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="id4" name="Email" [(ngModel)]="signUpobj.email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" #Email="ngModel">
+        <div class="row" *ngIf="Email.invalid && Email.touched"></div>
+        <div class="invalid-feedback d-block" *ngIf="Email.errors?.['pattern']">Please enter valid email id</div>
+        <div class="invalid-feedback d-block" *ngIf="Email.errors?.['required']">Email id is required</div>
+      </div>
+            <!-- password -->
+      <div class="mb-3">
+        <label for="id5" class="form-label">Password</label>
+        <input type="password" class="form-control" id="id5" name="pwd" [(ngModel)]="signUpobj.password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"#pwd=ngModel>
+        <div class="row" *ngIf="pwd.invalid && pwd.touched"></div>
+        <div class="invalid-feedback d-block" *ngIf="pwd.errors?.['pattern']">Password must be eight characters including one uppercase letter, one special character and alphanumeric characters </div>
+        <div class="invalid-feedback d-block" *ngIf="pwd.errors?.['required']">password is required</div>
+      </div>
+        <!-- states -->
+      <div class="mb-3">   
+        <label for="id8" class="form-label">Select State</label>
+        <select name="state" id="id8"class="form-control" [(ngModel)]="signUpobj.State" (ngModelChange)="getCity()">
+            <option *ngFor="let item of States" >{{item}}</option>
+        </select>
+      </div>
+        <!-- city -->
+      <div class="mb-3">   
+        <label for="id7" class="form-label">Select City</label>
+        <select name="city" id="id7"class="form-control" [(ngModel)]="signUpobj.City">
+            <option *ngFor="let item of Cities" >{{item}}</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary"[disabled]="signUp.invalid" >Submit</button>&nbsp;
+      <button type="submit" class="btn btn-primary" (click)="getdata()">Get Data</button> 
+    </form>
+  </div>

@@ -1,0 +1,48 @@
+
+<div class="container mt-5 w-50 shadow p-10" >
+    <div class="row">
+      <h4 class="text-center mt-5">Product Details</h4>
+    </div>
+    <form #productdata="ngForm" (ngSubmit)="savedata()">
+        <!-- category -->
+        <div class="mb-3">
+            <label for="id1" class="form-label">Category</label>
+            <input type="text" class="form-control" id="id1" name="cat" [(ngModel)]="productObj.category"  required #cat="ngModel">
+            <div class="row" *ngIf="cat.invalid && cat.touched"></div>
+            <div class="invalid-feedback d-block" *ngIf="cat.errors?.['required']">this is required</div>
+          </div>
+       <!-- productname -->
+          <div class="mb-3">
+            <label for="id2" class="form-label">Product</label>
+            <input type="text" class="form-control" id="id2" name="proname" [(ngModel)]="productObj.Pname"  required #proname="ngModel">
+            <div class="row" *ngIf="proname.invalid && proname.touched"></div>
+            <div class="invalid-feedback d-block" *ngIf="proname.errors?.['required']">this is required</div>
+          </div>
+          <!-- quantity -->
+      <div class="mb-3">
+        <label for="id3" class="form-label">Quantity</label>
+        <input type="text" name="quantity" id="id3" class="form-control" [(ngModel)]="productObj.quantity" (ngModelChange)="totalprice()" pattern="[0-9]{1,8}" #quantity="ngModel" required>
+        <div class="row" *ngIf="quantity.invalid && quantity.touched">
+          <div class="invalid-feedback d-block" *ngIf="quantity.errors?.['pattern']">Only numbers are allowed</div>
+          <div class="invalid-feedback d-block" *ngIf="quantity.errors?.['required']">This field is required</div>
+        </div>
+      </div>
+  <!-- price  -->
+      <div class="mb-3">
+        <label for="id4" class="form-label">Price</label>
+        <input type="text" name="price" id="id4" class="form-control" [(ngModel)]="productObj.price" (ngModelChange)="totalprice()" pattern="[0-9]{1,7}" #price="ngModel" required>
+        <div class="row" *ngIf="price.invalid && price.touched">
+          <div class="invalid-feedback d-block" *ngIf="price.errors?.['pattern']">Only numbers are allowed</div>
+          <div class="invalid-feedback d-block" *ngIf="price.errors?.['required']">This field is required</div>
+        </div>
+      </div>
+  <!-- totalPrice  -->
+      <div class="mb-3">
+        <label for="id5">Total</label>
+        <input type="text" name="total" id="id5" class="form-control" readonly [(ngModel)]="productObj.total" ngModel>
+      </div>
+  <!-- buttons  -->
+      <button type="submit" class="btn btn-primary mx-1" [disabled]="productdata.invalid">Submit</button>
+      <button class="btn btn-success mx-1" (click)="getProduct()">Get Product</button>
+      <button type="reset" class="btn btn-danger mx-1">Reset</button><br><br>
+    </form>

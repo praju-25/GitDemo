@@ -1,0 +1,83 @@
+<div class="container w-50 shadow p-5">
+<h2 class="text-center">Template Driven Form</h2>
+
+<form #SignUp="ngForm" (ngSubmit)="save(SignUp)">
+    <!-- name -->
+    <div class="mb-3">
+       <label for="id1" class="form-label">First Name</label>
+       <input type="text" class="form-control" id="id1" name="firstname" ngModel pattern="[a-zA-Z]{2,10}" required #firstname="ngModel" placeholder="Enter your name">
+         <div class="row" *ngIf="firstname.invalid && firstname.touched">
+          <div class="invalid-feedback d-block" *ngIf="firstname.errors?.['pattern']">Enter Valid FirstName</div>
+          <div class="invalid-feedback d-block" *ngIf="firstname.errors?.['required']">firstname is reqired</div>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="id2" class="form-label">Last Name</label>
+        <input type="text" class="form-control" id="id2" name="lastname" ngModel pattern="[a-zA-Z]{2,10}" #lastname="ngModel" placeholder="Enter last name">
+        <div class="row" *ngIf="lastname.invalid && lastname.touched">
+            <div class="invalid-feedback d-block" *ngIf="lastname.errors?.['pattern']">Enter Valid LastName</div>
+       </div>
+    </div>
+<!-- AgeField -->
+    <div class="mb-3">
+        <label for="id6" class="form-label">Age</label>
+        <input type="text" class="form-control" id="id6" name="age" ngModel pattern="[0-9]{0,2}" #age="ngModel" placeholder="Enter your age">
+        <div class="row" *ngIf="age.invalid && age.touched">
+            <div class="invalid-feedback d-block" *ngIf="age.errors?.['pattern']">Enter Valid Age</div>
+       </div>
+    </div>
+<!-- DateofBirth -->
+    <div class="mb-3">
+      <label for="id7" class="form-label">Date of Birth</label>
+      <input type="text" class="form-control" id="id7" name="dob" ngModel pattern="(0[1-9]|[1-2][0-9]|3[0-1])\/(0[1-9]|1[0-2])\/([0-9]{4})" #dob="ngModel" placeholder="dd/mm/yyyy">
+      <div class="row" *ngIf="dob.invalid && dob.touched">
+          <div class="invalid-feedback d-block" *ngIf="dob.errors?.['pattern']">Enter Valid birthdate</div>
+     </div>
+  </div>
+
+<!-- MailID -->
+      <div class="mb-3">
+        <label for="id3" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="id3" name="Email" ngModel  pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$" required #Email="ngModel">
+        <div class="row" *ngIf="Email.invalid && Email.touched">
+            <div class="invalid-feedback d-block" *ngIf="Email.errors?.['pattern']">  Please enter correct Mail-ID</div>
+            <div class="invalid-feedback d-block" *ngIf="Email.errors?.['required']"> Mail-ID is required</div>
+         </div>
+     </div>
+<!-- Passwordfield -->
+    <div class="mb-3">
+      <label for="id4" class="form-label">Password</label>
+      <input type="password" class="form-control" id="id4" name="password" ngModel pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required #password="ngModel">
+      <div class="row" *ngIf="password.invalid && password.touched">
+        <div class="invalid-feedback d-block" *ngIf="password.errors?.['pattern']">Please enter correct password</div>
+        <div class="invalid-feedback d-block" *ngIf="password.errors?.['required']">password is required</div>
+     </div>
+    </div>
+    <!-- mobilefield -->
+   <div class="mb-3">
+      <label for="id5" class="form-label">Mobile Number</label>
+      <input type="text" class="form-control" id="id5" name="mobno" ngModel pattern="[0-9]{10}" required #mobileno="ngModel">
+      <div class="row" *ngIf="mobileno.invalid && mobileno.touched">
+        <div class="invalid-feedback d-block" *ngIf="mobileno.errors?.['pattern']">Please enter correct MobileNO</div>
+        <div class="invalid-feedback d-block" *ngIf="mobileno.errors?.['required']"> MobileNO is required</div>
+     </div>
+    </div>
+    <!-- checkbox -->
+    <div class="mb-3 form-check">
+      <label class="form-check-label" for="id8">Check me out</label>
+      <input type="checkbox" class="form-check-input" id="id8" ngModel required >
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="SignUp.invalid">Submit</button>
+  </form>
+<div class="mt-5">
+    <div>Value:&nbsp;{{SignUp.value| json}}</div>
+    <div><span class="fw-bold"> Touched:</span> &nbsp;{{SignUp.touched}}</div>
+    <div><span class="fw-bold"> Untouched:</span>&nbsp;{{SignUp.untouched}}</div>
+    <div><span class="fw-bold"> Dirty:</span>&nbsp;{{SignUp.dirty}}</div>
+    <div><span class="fw-bold"> Pristine:</span>&nbsp;{{SignUp.pristine}}</div>
+    <div><span class="fw-bold"> Valid:</span>&nbsp;{{SignUp.valid}}</div>
+    <div><span class="fw-bold"> inValid:</span>&nbsp;{{SignUp.invalid}}</div>
+</div>
+
